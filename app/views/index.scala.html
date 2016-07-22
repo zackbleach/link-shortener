@@ -1,0 +1,60 @@
+@(linkForm: Form[model.LinkFormData],links : Seq[model.LinkPresenter])(implicit request: RequestHeader, flash: Flash, messages: Messages)
+@main() {
+<h1> @flash.get("errors").getOrElse("")</h1>
+
+    <form id="link-data-form" role="form" action='@routes.ApplicationController.addLink()' method="post" class="form-horizontal" align="center" autocomplete="off">
+
+        <fieldset class="link-fieldset">
+
+            <div class="link-form">
+                <label class="form-title" style="color: #F8741B; font-size: 22px;font-weight: bold; text-decoration:none">URL Shortener</label>
+            </div>
+            <br/>
+            <table align="center" cellspacing="20">
+                <tr>
+                    <td align="center">
+                        <div class="link-form" id="redirect_to_value">
+                            <div class="controls col-xs-offset-3 col-xs-9">
+                                <div class="input-group">
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-link"></span></span>
+                                  @helper.inputText(linkForm("redirectTo"),
+                                      'id -> "name",
+                                      'class -> "ui-state-default",
+                                      'autocomplete -> "off",
+                                      'placeholder -> "Paste a url to shorten it",
+                                      '_label -> null,
+                                      '_showConstraints -> false
+                                  )
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <div class="form-actions controls ynt-btn-xlarge">
+                <button type="submit" class="btn btn-primary ynt-btn-orange">Shorten</button>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <div class="link-display" >
+        <fieldset>
+            <legend align="center"><h3>Registered Links</h3></legend>
+            <table cellspacing="20">
+                <tr>
+                    <th>URL</th>
+                    <th>Short URL</th>
+                </tr>
+                @for(link <- links){
+                    <tr>
+                        <td>@link.redirectTo</td>
+                        <td>@link.shortUrl</td>
+                        <td><a href="@routes.ApplicationController.deleteLink(link.id)">delete</a></td>
+                    </tr>
+                }
+            </table>
+        </fieldset>
+    </div>
+
+}
