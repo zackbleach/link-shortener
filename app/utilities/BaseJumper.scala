@@ -1,6 +1,6 @@
 package utilities
 
-class BaseJumper() {
+object BaseJumper {
 
   val baseString = ((0 to 9) ++ ('A' to 'Z') ++ ('a' to 'z') ++ "[-~._]").mkString
   val base = baseString.length()

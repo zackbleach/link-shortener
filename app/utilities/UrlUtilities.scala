@@ -6,21 +6,19 @@ import com.netaporter.uri.Uri.parse
 import org.apache.commons.validator.routines.UrlValidator
 import org.apache.commons.validator.routines.UrlValidator.ALLOW_ALL_SCHEMES
 
-class UrlUtilities() {
+object UrlUtilities {
 
   def cleanUrl(s: String): String = {
-    val uri = parse(s)
-    if (uri.scheme.isEmpty) {
-      // TODO:.withScheme doesn't work, open a PR?
-      val newUri = parse("http://" + s)
-      newUri.toURI()
-      return newUri.toString()
+    if (parse(s).scheme.isEmpty) {
+      // TODO: .withScheme doesn't work, open a PR?
+      parse("http://" + s).toURI.toString
+    } else {
+      s
     }
-    return s
   }
 
   def validateUrl(s: String): Boolean = {
     val urlValidator = new UrlValidator(ALLOW_ALL_SCHEMES);
-    return urlValidator.isValid(s)
+    urlValidator.isValid(s)
   }
 }

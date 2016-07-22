@@ -1,4 +1,4 @@
-@(linkForm: Form[model.LinkFormData],links : Seq[model.LinkPresenter])(implicit request: RequestHeader, flash: Flash, messages: Messages)
+@(linkForm: Form[model.LinkFormData],links : Seq[model.Link])(implicit request: RequestHeader, flash: Flash, messages: Messages)
 @main() {
 <h1> @flash.get("errors").getOrElse("")</h1>
 
